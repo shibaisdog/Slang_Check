@@ -7,6 +7,7 @@
 //   |_|\__,_|_| |_|\__,_|\__|
 
 const info = () => {
+    // 모든 라이센스는 코르센(korcen)과 동일합니다 | 에 따릅니다
     console.log('--- Copyright© All rights reserved. ---')
     console.log(' PL :  [상업|수정|분배|특허 사용|개인 용도] ')
     console.log(' CD :  [라이선스 및 저장권 공지|상태 변경|소스 공개| 동일 라이선스] ')
@@ -24,7 +25,12 @@ const info = () => {
     console.log("L : shibaisdog")
     console.log("L : https://github.com/shibaisdog/Slang_Check")
 }
-const check_korean = (text) => {
+const check_korean = (text,filter = {}) => {
+    filter.비속어 ??= true
+    filter.성적발언 ??= true
+    filter.인종발언 ??= true
+    filter.패드립 ??= true
+    filter.정치 ??= true
     // korcen.py
     text = text.replaceAll('𝗌', 's')
     text = text.replaceAll('𝘴', 's')
@@ -162,13 +168,13 @@ const check_korean = (text) => {
     let fuckyou = ["ㅗ", "┻", "┴", "┹", "_ㅣ_",
                 "_/_", "⊥", "_ |\_", "_|\_", "_ㅣ\_", "_I_", "丄"]
     for (let i in fuckyou) {
-        if (fuckyou[i].includes(text) && text) {
+        if (filter.비속어 && fuckyou[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":fuckyou[i]}
         }
     }
     let fuck = ["tq", "qt"]
     for (let i in fuck) {
-        if (fuck[i] == newtext) {
+        if (filter.비속어 && fuck[i] == newtext) {
             return {"result":true,"reason":"비속어","discovered":fuck[i]}
         }
     }
@@ -194,7 +200,7 @@ const check_korean = (text) => {
             "si바", "si발", "si불", "si빨", "si팔", "tl바", "tl발", "tl불", "tl빨", "tl팔",
             "siba", "tlba", "siva", "tlva", "tlqkf", "10발놈", "10발년", "tlqkd", "si8", "10R놈", "시8", "십8", "s1bal", "sib알", "씨x","siㅂ"]
     for (let i in fuck) {
-        if (fuck[i].includes(text) && text) {
+        if (filter.비속어 && fuck[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":fuck[i]}
         }
     }
@@ -228,7 +234,7 @@ const check_korean = (text) => {
             "시ㅂㅏ", "ㅅㅂㅏ", "시ㅏㄹ", "씨ㅏㄹ", "ㅅ불", "ㅆ불", "ㅅ쁠", "ㅆ뿔", "ㅆㅣ발", "ㅅㅟ발", "ㅅㅣㅂㅏ",
             "ㅣ바알", "ㅅ벌", "^^ㅣ벌", "ㅆ삐라", "씨ㅃ"]
     for (let i in fuck) {
-        if (fuck[i].includes(text) && text) {
+        if (filter.비속어 && fuck[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":fuck[i]}
         }
     }
@@ -328,7 +334,7 @@ const check_korean = (text) => {
             "쉬이빨", "씹팔", "쉬바", "시병발신", "씱빩", "쉬바난", "쉬바놈", "쉬바녀", "쉬바년", "쉬바노마", "쉬바새", "쉬불", "쉬이바",
             "시벨놈", "시뱅놈", "시봉새", "씻뻘"]
     for (let i in fuck) {
-        if (fuck[i].includes(text) && text) {
+        if (filter.비속어 && fuck[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":fuck[i]}
         }
     }
@@ -339,7 +345,7 @@ const check_korean = (text) => {
     fuck = ["18것", "18놈", "18럼", "18롬", "18새끼",
             "18세끼", "18세리", "18섹", "18쉑", "10쉑"]
     for (let i in fuck) {
-        if (fuck[i].includes(text) && text) {
+        if (filter.비속어 && fuck[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":fuck[i]}
         }
     }
@@ -348,7 +354,7 @@ const check_korean = (text) => {
     text = text.replaceAll("op.gg", "")
     let bullshit1 = ["wlfkf", "g랄", "g럴", "g롤", "g뢀", "giral", "zi랄", "ji랄"]
     for (let i in bullshit1) {
-        if (bullshit1[i].includes(text) && text) {
+        if (filter.비속어 && bullshit1[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":bullshit1[i]}
         }
     }
@@ -372,7 +378,7 @@ const check_korean = (text) => {
     text = text.replaceAll("ㄹㅇ", "")
     bullshit1 = ["ㅈㄹ", "지ㄹ", "ㅈ랄", "ㅈ라"]
     for (let i in bullshit1) {
-        if (bullshit1[i].includes(text) && text) {
+        if (filter.비속어 && bullshit1[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":bullshit1[i]}
         }
     }
@@ -388,7 +394,7 @@ const check_korean = (text) => {
     text = text.replaceAll('근데', '')
     let bullshit2 = ["지랄", "찌랄", "지럴", "지롤", "랄지", "쥐랄", "쮜랄", "지뢀", "띄랄"]
     for (let i in bullshit2) {
-        if (bullshit2[i].includes(text) && text) {
+        if (filter.비속어 && bullshit2[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":bullshit2[i]}
         }
     }
@@ -418,7 +424,7 @@ const check_korean = (text) => {
     text = text.replaceAll('유', '')
     let asshole = ["ㅄ", "ㅂㅅ", "병ㅅ", "ㅂ신", "ㅕㅇ신", "ㅂㅇ신", "뷰신"]
     for (let i in asshole) {
-        if (asshole[i].includes(text) && text) {
+        if (filter.비속어 && asshole[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":asshole[i]}
         }
     }
@@ -427,7 +433,7 @@ const check_korean = (text) => {
     text = text.replaceAll('엉', '')
     asshole = ["병신", "병딱", "벼신", "붱신", "뼝신", "뿽신", "삥신", "병시니", "병형신"]
     for (let i in asshole) {
-        if (asshole[i].includes(text) && text) {
+        if (filter.비속어 && asshole[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":asshole[i]}
         }
     }
@@ -436,7 +442,7 @@ const check_korean = (text) => {
     text = text.replaceAll(/[^가-힣]/g, "")
     let motherfucker = ["염병", "엠병", "옘병", "염병", "얨병", "옘뼝"]
     for (let i in motherfucker) {
-        if (motherfucker[i].includes(text) && text) {
+        if (filter.비속어 && motherfucker[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":motherfucker[i]}
         }
     }
@@ -451,19 +457,19 @@ const check_korean = (text) => {
     text = text.replaceAll('꺼져도', '')
     text = text.replaceAll('계속꺼져', '')
     text = text.replaceAll('꺼져가', '')
-    if ("꺼져".includes(text) && text) {
+    if (filter.비속어 && "꺼져".includes(text) && text) {
         return {"result":true,"reason":"비속어","discovered":"꺼져"}
     }
     text = newtext.replaceAll(/[^가-힣]/g, "")
     let shit = ["엿같", "엿가튼", "엿먹어", "뭣같은"]
     for (let i in shit) {
-        if (shit[i].includes(text) && text) {
+        if (filter.비속어 && shit[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":shit[i]}
         }
     }
     let sonofbitch = ["rotorl", "rotprl", "sib새", "AH끼", "sㅐ끼", "x끼"]
     for (let i in sonofbitch) {
-        if (sonofbitch[i].includes(text) && text) {
+        if (filter.비속어 && sonofbitch[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":sonofbitch[i]}
         }
     }
@@ -483,7 +489,7 @@ const check_korean = (text) => {
     text = text.replaceAll(/[^ㄱ-힣]/g, "")
     sonofbitch = ["ㅅㄲ", "ㅅ끼", "ㅆ끼", "색ㄲㅣ", "ㅆㅐㄲㅑ", "ㅆㅐㄲㅣ"]
     for (let i in sonofbitch) {
-        if (sonofbitch[i].includes(text) && text) {
+        if (filter.비속어 && sonofbitch[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":sonofbitch[i]}
         }
     }
@@ -506,13 +512,13 @@ const check_korean = (text) => {
     sonofbitch = ["새끼", "쉐리", "쌔끼", "썌끼", "쎼끼", "쌬끼", "샠끼", "세끼", "샊", "쌖", "섺", "쎆", "십새", "새키", "씹색", "새까", "새꺄",
                     "새뀌", "새끠", "새캬", "색꺄", "색끼", "섹히", "셁기", "셁끼", "셐기", "셰끼", "셰리", "쉐꺄", "십색꺄", "십떼끼", "십데꺄", "십때끼", "십새꺄", "십새캬", "쉑히"]
     for (let i in sonofbitch) {
-        if (sonofbitch[i].includes(text) && text) {
+        if (filter.비속어 && sonofbitch[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":sonofbitch[i]}
         }
     }
     let dick = ["w같은"]
     for (let i in dick) {
-        if (dick[i].includes(newtext) && newtext) {
+        if (filter.비속어 && dick[i].includes(newtext) && newtext) {
             return {"result":true,"reason":"비속어","discovered":dick[i]}
         }
     }
@@ -543,7 +549,7 @@ const check_korean = (text) => {
     text = text.replaceAll('쫒기', '')
     dick = ["ㅈ같", "ㅈ망", "ㅈ까", "ㅈ경", "ㅈ가튼"]
     for (let i in dick) {
-        if (dick[i].includes(text) && text) {
+        if (filter.비속어 && dick[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":dick[i]}
         }
     }
@@ -555,45 +561,45 @@ const check_korean = (text) => {
     dick = ["좆", "촟", "조까", "좈", "쫒", "졷", "좃", "줮",
             "좋같", "좃같", "좃물", "좃밥", "줫", "좋밥", "좋물", "좇"]
     for (let i in dick) {
-        if (dick[i].includes(text) && text) {
+        if (filter.비속어 && dick[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":dick[i]}
         }
     }
     let damn = ["썅", "씨앙", "씨양", "샤앙", "쌰앙"]
     for (let i in damn) {
-        if (damn[i].includes(text) && text) {
+        if (filter.비속어 && damn[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":damn[i]}
         }
     }
     let swear = ["tq", "qt"]
     for (let i in swear) {
-        if (swear[i].includes(text) && text) {
+        if (filter.비속어 && swear[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":swear[i]}
         }
     }
     let whatthefuck = ["뻑유", "뻐킹", "뻐큐", "빡큐", "뿩큐", "뻑큐", "빡유", "뻒큐"]
     for (let i in whatthefuck) {
-        if (whatthefuck[i].includes(text) && text) {
+        if (filter.비속어 && whatthefuck[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":whatthefuck[i]}
         }
     }
     let shutup = ["닥쳐", "닭쳐", "닥치라", "아가리해"]
     for (let i in shutup) {
-        if (shutup[i].includes(text) && text) {
+        if (filter.비속어 && shutup[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":shutup[i]}
         }
     }
     text = newtext.replaceAll(/[0-9]+/g, '')
     let sonofagun = ["dog새"]
     for (let i in sonofagun) {
-        if (sonofagun[i].includes(text) && text) {
+        if (filter.비속어 && sonofagun[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":sonofagun[i]}
         }
     }
     text = newtext.replaceAll(/[^ㄱ-힣]/g, "")
     sonofagun = ["개ㅐ색"]
     for (let i in sonofagun) {
-        if (sonofagun[i].includes(text) && text) {
+        if (filter.비속어 && sonofagun[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":sonofagun[i]}
         }
     }
@@ -644,7 +650,7 @@ const check_korean = (text) => {
                     "게띠발넘", "게부랄", "게부알", "게새끼", "게새리", "게새키", "게색", "게색기", "게색끼", "게샛키", "게세꺄", "게자지", "게잡넘", "게잡년", "게잡뇬", "게젓",
                     "게좆", "계같은뇬", "계뇬", "계뇽", "쉬댕", "쉬뎅"]
     for (let i in sonofagun) {
-        if (sonofagun[i].includes(text) && text) {
+        if (filter.비속어 && sonofagun[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":sonofagun[i]}
         }
     }
@@ -657,7 +663,7 @@ const check_korean = (text) => {
     text = text.replaceAll('련', '놈')
     let damnit = ["ㅁㅊ", "ㅁ친", "ㅁ쳤", "aㅣ친", "me친", "미ㅊ", "DI친"]
     for (let i in damnit) {
-        if (damnit[i].includes(text) && text) {
+        if (filter.비속어 && damnit[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":damnit[i]}
         }
     }
@@ -673,21 +679,21 @@ const check_korean = (text) => {
     text = text.replaceAll('련', '놈')
     damnit = ["미친놈", "무친놈"]
     for (let i in damnit) {
-        if (damnit[i].includes(text) && text) {
+        if (filter.비속어 && damnit[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":damnit[i]}
         }
     }
     text = text.replaceAll(/[^가-힣]/g, "")
     let picking = ["꼽냐", "꼽니", "꼽나"]
     for (let i in picking) {
-        if (picking[i].includes(text) && text) {
+        if (filter.비속어 && picking[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":picking[i]}
         }
     }
     text = text.replaceAll(/[^ㄱ-힣]/g, "")
     picking = ["ㅈㄴ", "ㅈ나", "존ㄴ", "존맛"]
     for (let i in picking) {
-        if (picking[i].includes(text) && text) {
+        if (filter.비속어 && picking[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":picking[i]}
         }
     }
@@ -697,7 +703,7 @@ const check_korean = (text) => {
     text = text.replaceAll("졸라맨", "")
     picking = ["존나", "존내", "쫀나", "존네","줜나"]
     for (let i in picking) {
-        if (picking[i].includes(text) && text) {
+        if (filter.비속어 && picking[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":picking[i]}
         }
     }
@@ -710,7 +716,7 @@ const check_korean = (text) => {
     text = text.replaceAll("뒤져볼", "")
     picking = ["뒤져", "뒈져", "뒈진", "뒈질", "디져라", "디진다", "디질래", "뒤질"]
     for (let i in picking) {
-        if (picking[i].includes(text) && text) {
+        if (filter.비속어 && picking[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":picking[i]}
         }
     }
@@ -720,7 +726,7 @@ const check_korean = (text) => {
     text = text.replaceAll(' ', '')
     let pussy = ["ⓑⓞⓩⓘ", "bozi", "보ㅈㅣ"]
     for (let i in pussy) {
-        if (pussy[i].includes(text) && text) {
+        if (filter.성적발언 && pussy[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":pussy[i]}
         }
     }
@@ -783,20 +789,20 @@ const check_korean = (text) => {
     pussy = ["보지", "버지물", "버짓물", "보짓", "ⓑⓞⓩⓘ",
                 "bozi", "개보즤", "개보지", "버지벌렁벌렁", "보짖", "뵤즤", "봊이"]
     for (let i in pussy) {
-        if (pussy[i].includes(text) && text) {
+        if (filter.성적발언 && pussy[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":pussy[i]}
         }
     }
     let dicks = ["ja지"]
     for (let i in dicks) {
-        if (dicks[i].includes(newtext) && newtext) {
+        if (filter.성적발언 && dicks[i].includes(newtext) && newtext) {
             return {"result":true,"reason":"성적발언","discovered":dicks[i]}
         }
     }
     text = newtext.replaceAll(/[^ㄱ-힣]/g, "")
     let onahole = ["ㅈㅈ빨", "자ㅈ", "ㅈ지빨"]
     for (let i in onahole) {
-        if (onahole[i].includes(text) && text) {
+        if (filter.성적발언 && onahole[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":onahole[i]}
         }
     }
@@ -839,7 +845,7 @@ const check_korean = (text) => {
     text = text.replaceAll('아', '')
     dicks = ["자지", "자짓", "잦이", "쟈지"]
     for (let i in dicks) {
-        if (dicks[i].includes(text) && text) {
+        if (filter.성적발언 && dicks[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":dicks[i]}
         }
     }
@@ -863,7 +869,7 @@ const check_korean = (text) => {
     let sex = ["sex", "s스", "x스", "se스", "se스", "s스",
             "ㅅㅅ", "s하고e싶다x", "ㅅㅔㅅㄱ", "이=스", "ㅇl=스"]
     for (let i in sex) {
-        if (sex[i].includes(text) && text) {
+        if (filter.성적발언 && sex[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":sex[i]}
         }
     }
@@ -873,7 +879,7 @@ const check_korean = (text) => {
     text = text.replaceAll(/[^ㄱ-힣]/g, "")
     sex = ["ㅅㅔㄱ스", "섹ㅅ", "ㅅ스", "세ㄱㅅ", "ㅅㅔㄱㅅ"]
     for (let i in sex) {
-        if (sex[i].includes(text) && text) {
+        if (filter.성적발언 && sex[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":sex[i]}
         }
     }
@@ -913,13 +919,13 @@ const check_korean = (text) => {
     sex = ["섹스", "섻", "쉑스", "섿스", "섹그", "야스", "색스", "셱스", "섁스", "세엑스", "썩스", "섹수", "섹파", "섹하자", "쉐스", "쉑스", "쉐엑스", "색수", "세엑수우", "섹하고",
             "섹하구", "섹하자", "섹하장", "섹하쟈", "섹한번", "쌕스"]
     for (let i in sex) {
-        if (sex[i].includes(text) && text) {
+        if (filter.성적발언 && sex[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":sex[i]}
         }
     }
     dick = ["꼬3", "꼬툭튀", "꼬톡튀"]
     for (let i in dick) {
-        if (dick[i].includes(text) && text) {
+        if (filter.성적발언 && dick[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":dick[i]}
         }
     }
@@ -927,42 +933,42 @@ const check_korean = (text) => {
     let fireegg = ["불알", "부랄", "뽕알", "뿅알", "뿌랄", "뿔알", "개부달",
                 "개부랄", "개부러럴", "개부럴", "개부뢀", "개부알", "개불알", "똘추", "똥구멍", "부라랄"]
     for (let i in fireegg) {
-        if (fireegg[i].includes(text) && text) {
+        if (filter.성적발언 && fireegg[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":fireegg[i]}
         }
     }
     text = newtext.replaceAll(/[^ㄱ-힣]/g, "")
     onahole = ["오나홍", "오나홀", "ㅇㄴ홀", "텐가", "바이브레이터", "오ㄴ홀", "ㅇ나홀"]
     for (let i in onahole) {
-        if (onahole[i].includes(text) && text) {
+        if (filter.성적발언 && onahole[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":onahole[i]}
         }
     }
     text = newtext.replaceAll(/[^가-힣]/g, "")
     sex = ["씹하다"]
     for (let i in sex) {
-        if (sex[i].includes(text) && text) {
+        if (filter.성적발언 && sex[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":sex[i]}
         }
     }
     text = newtext.replaceAll(/[^가-힣]/g, "")
     onahole = ["매춘부", "성노예"]
     for (let i in onahole) {
-        if (onahole[i].includes(text) && text) {
+        if (filter.성적발언 && onahole[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":onahole[i]}
         }
     }
     text = newtext.replaceAll(/[^가-힣]/g, "")
     onahole = ["자궁문신"]
     for (let i in onahole) {
-        if (onahole[i].includes(text) && text) {
+        if (filter.성적발언 && onahole[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":onahole[i]}
         }
     }
     text = newtext.replaceAll(/[^가-힣]/g, "")
     onahole = ["모유물", "로리물", "근친상간", "룸섹스", "원조교재", "속박플레이", "야외플레이"]
     for (let i in onahole) {
-        if (onahole[i].includes(text) && text) {
+        if (filter.성적발언 && onahole[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":onahole[i]}
         }
     }
@@ -979,33 +985,33 @@ const check_korean = (text) => {
                 "먹고보니똥개", "먹고보니엄마", "먹고보니응아", "먹고보니재수", "먹고보니처제", "먹고보니형수", "몸뚱이줄께", "몸안에사정", "밖에다쌀께", "박고빼고",
                 "배위에싸죠", "몸의대화", "섹할", "섹해"]
     for (let i in onahole) {
-        if (onahole[i].includes(text) && text) {
+        if (filter.성적발언 && onahole[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":onahole[i]}
         }
     }
     onahole = ["g스팟", "지스팟"]
     for (let i in onahole) {
-        if (onahole[i].includes(newtext) && newtext) {
+        if (filter.성적발언 && onahole[i].includes(newtext) && newtext) {
             return {"result":true,"reason":"성적발언","discovered":onahole[i]}
         }
     }
     text = newtext.replaceAll(/[^가-힣]/g, "")
     onahole = ["크리토리스", "클리토리스", "페니스", "애널"]
     for (let i in onahole) {
-        if (onahole[i].includes(text) && text) {
+        if (filter.성적발언 && onahole[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":onahole[i]}
         }
     }
     text = newtext.replaceAll(/[^가-힣]/g, "")
     onahole = ["젖까", "젖가튼", "젖나", "젖만"]
     for (let i in onahole) {
-        if (onahole[i].includes(text) && text) {
+        if (filter.성적발언 && onahole[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":onahole[i]}
         }
     }
     onahole = ["ja위"]
     for (let i in onahole) {
-        if (onahole[i].includes(text) && text) {
+        if (filter.성적발언 && onahole[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":onahole[i]}
         }
     }
@@ -1021,11 +1027,11 @@ const check_korean = (text) => {
     text = text.replaceAll("자기위로", "자위")
     onahole = ["자위", "고자새끼", "고츄", "꺼추", "꼬추"]
     for (let i in onahole) {
-        if (onahole[i].includes(text) && text) {
+        if (filter.성적발언 && onahole[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":onahole[i]}
         }
     }
-    if ("freenude".includes(text) && text) {
+    if (filter.성적발언 && "freenude".includes(text) && text) {
         return {"result":true,"reason":"성적발언","discovered":"freenude"}
     }
 
@@ -1036,7 +1042,7 @@ const check_korean = (text) => {
     text = text.replaceAll('넘', '련')
     let belittling = ["10련"]
     for (let i in belittling) {
-        if (belittling[i].includes(text) && text) {
+        if (filter.비속어 && belittling[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":belittling[i]}
         }
     }
@@ -1070,7 +1076,7 @@ const check_korean = (text) => {
                     "거지쉑이", "거지쎄끼", "거지쒜리", "걸래가튼", "걸래넘", "걸래년", "걸래놈", "걸레가튼", "걸레년", "그지새끼", "그지새키", "그지색", "기집년", "까진년",
                     "깔보", "난잡년", "빡대가리", "더러운년", "돌아이", "또라이", "장애려", "샹놈", "김치남", "김치녀", "혜지련", "한유남충", "페미나치", "페미년", "꼴페미"]
     for (let i in belittling) {
-        if (belittling[i].includes(text) && text) {
+        if (filter.비속어 && belittling[i].includes(text) && text) {
             return {"result":true,"reason":"비속어","discovered":belittling[i]}
         }
     }
@@ -1082,7 +1088,7 @@ const check_korean = (text) => {
     let nigger = ["깜둥이", "흑형", "조센진", "짱개", "짱깨",
                 "짱께", "짱게", "쪽바리", "쪽파리", "빨갱이", "쪽바리", "니그로", "코쟁이", "칭총", "칭챙총", "섬숭이", "왜놈", "짱꼴라", "짱깨", "섬짱깨"]
     for (let i in nigger) {
-        if (nigger[i].includes(text) && text) {
+        if (filter.인종발언 && nigger[i].includes(text) && text) {
             return {"result":true,"reason":"인종발언","discovered":nigger[i]}
         }
     }
@@ -1091,7 +1097,7 @@ const check_korean = (text) => {
 
     let your = ["ㄴ1ㄱ", "ㄴ1ㅁ", "느금ㅁ", "ㄴㄱ마", "ㄴㄱ빠", "ㄴ금빠", "ㅇH미", "ㄴ1에미", "늬애미"]
     for (let i in your) {
-        if (your[i].includes(newtext) && newtext) {
+        if (filter.패드립 && your[i].includes(newtext) && newtext) {
             return {"result":true,"reason":"패드립","discovered":your[i]}
         }
     }
@@ -1100,7 +1106,7 @@ const check_korean = (text) => {
     text = text.replaceAll('미국', '')
     your = ["ㄴㄱㅁ", "ㄴ금마", "느금ㅁ", "ㄴㄱ마", "ㄴㄱ빠", "ㄴ금빠", "ㄴ미", "늬금마"]
     for (let i in your) {
-        if (your[i].includes(text) && text) {
+        if (filter.패드립 && your[i].includes(text) && text) {
             return {"result":true,"reason":"패드립","discovered":your[i]}
         }
     }
@@ -1114,7 +1120,7 @@ const check_korean = (text) => {
     your = ["느금마", "느그엄마", "늑엄마", "늑금마", "느그애미", "넉엄마", "느그부모", "느그애비", "느금빠", "느그메", "느그빠", "니미씨", "니미씹",
             "느그마", "니엄마", "엄창", "엠창", "니미럴", "누굼마", "느금", "내미랄", "내미럴", "엄마없는", "아빠없는", "노에미"]
     for (let i in your) {
-        if (your[i].includes(text) && text) {
+        if (filter.패드립 && your[i].includes(text) && text) {
             return {"result":true,"reason":"패드립","discovered":your[i]}
         }
     }
@@ -1123,7 +1129,7 @@ const check_korean = (text) => {
     let motherfuck = ["니애미", "노애미", "노앰", "앰뒤련", "애믿쥐",
                     "아버지도없는게", "애미도없는게", "애비도없는게", "어머니도없는게", "엄마없네", "니애비", "노애비", "애미없", "애비없", "애미뒤", "애비뒤", "니아빠", "너에미", "눼기미", "뉘귀미", "뉘기미", "뉘김이", "뉘뮈", "뉘미랄", "뉘미럴", "뉘미롤", "뉘밀얼", "뉘밀할", "뉘어미", "뉘에미", "느검마", "늬긔미", "늬기미", "니기미", "니믜창", "니미랄", "니미럴", "니미쒸블", "니미씨펄넘", "니미좃", "니밀할", "니부랑", "니뽕좃", "애미죽"]
     for (let i in motherfuck) {
-        if (motherfuck[i].includes(text) && text) {
+        if (filter.패드립 && motherfuck[i].includes(text) && text) {
             return {"result":true,"reason":"패드립","discovered":motherfuck[i]}
         }
     }
@@ -1142,14 +1148,14 @@ const check_korean = (text) => {
 
     let mh = ["노시개", "노알라", "뇌사모", "뇌물현", "응디시티"]
     for (let i in mh) {
-        if (mh[i].includes(newtext) && newtext) {
+        if (filter.정치 && mh[i].includes(newtext) && newtext) {
             return {"result":true,"reason":"정치","discovered":mh[i]}
         }
     }
 
     let ji = ["귀걸이아빠", "달창", "대깨문", "문재앙", "문죄앙", "문죄인", "문크예거", "훠훠훠", "문빠"]
     for (let i in ji) {
-        if (ji[i].includes(newtext) && newtext) {
+        if (filter.정치 && ji[i].includes(newtext) && newtext) {
             return {"result":true,"reason":"정치","discovered":ji[i]}
         }
     }
@@ -1157,21 +1163,21 @@ const check_korean = (text) => {
     let gh = ["근혜어", "길라임", "나대블츠", "닭근혜", "댓통령", "레이디가카",
             "바쁜벌꿀", "수첩공주", "유신공주", "유체이탈화법", "칠푼이", "쿼터갓"]
     for (let i in gh) {
-        if (gh[i].includes(newtext) && newtext) {
+        if (filter.정치 && gh[i].includes(newtext) && newtext) {
             return {"result":true,"reason":"정치","discovered":gh[i]}
         }
     }
 
     let jh = ["반인반신", "데미갓", "박정희"]
     for (let i in jh) {
-        if (jh[i].includes(newtext) && newtext) {
+        if (filter.정치 && jh[i].includes(newtext) && newtext) {
             return {"result":true,"reason":"정치","discovered":jh[i]}
         }
     }
 
     let cs = ["간철수"]
     for (let i in cs) {
-        if (cs[i].includes(newtext) && newtext) {
+        if (filter.정치 && cs[i].includes(newtext) && newtext) {
             return {"result":true,"reason":"정치","discovered":cs[i]}
         }
     }
@@ -1199,7 +1205,7 @@ const check_korean = (text) => {
     text = text.replaceAll('카드', '')
     let mb = ["가카", "이명박근혜", "다스는누구겁니까"]
     for (let i in mb) {
-        if (mb[i].includes(text) && text) {
+        if (filter.정치 && mb[i].includes(text) && text) {
             return {"result":true,"reason":"정치","discovered":mb[i]}
         }
     }
@@ -1208,7 +1214,7 @@ const check_korean = (text) => {
     //text = text.replaceAll('', '')
     sex = ["헤으응","헤응","하앙","흐앙"]
     for (let i in sex) {
-        if (sex[i].includes(text) && text) {
+        if (filter.성적발언 && sex[i].includes(text) && text) {
             return {"result":true,"reason":"성적발언","discovered":sex[i]}
         }
     }
@@ -1218,14 +1224,72 @@ const check_korean = (text) => {
 
 
 const check_english = (text) => {
-    // korcen.ts
-    const cl = ['2 girls 1 cup', '2g1c', '4r5e', '5h1t', '5hit', 'a$$hole', 'a_s_s', 'a55hole', 'acrotomophilia', 'ahole', 'alabama hot pocket'
-        , 'alaskan pipeline', 'anal', 'anal impaler', 'anal leakage', 'analprobe', 'anilingus', 'apeshit', 'ar5e', 'arrse', 'arse', 'arsehole', 'ass fuck'
-        , 'ass hole', 'assbag', 'assbandit', 'assbang', 'assbanged', 'assbanger', 'assbangs', 'assbite', 'assclown', 'asscock', 'asscracker', 'asses'
-        , 'assface', 'assfaces', 'assfuck', 'assfucker', 'ass-fucker', 'assfukka', 'assgoblin', 'assh0le', 'asshat', 'ass-hat', 'asshead', 'assho1e'
-        , 'asshole', 'assholes', 'asshopper', 'ass-jabber', 'assjacker', 'asslick', 'asslicker', 'assmaster', 'assmonkey', 'assmucus', 'assmucus'
-        , 'assmunch', 'assmuncher', 'assnigger', 'asspirate', 'ass-pirate', 'assshit', 'assshole', 'asssucker', 'asswad', 'asswhole', 'asswipe'
-        , 'asswipes', 'auto erotic', 'autoerotic', 'axwound', 'azazel', 'b!tch', 'b00bs', 'b17ch', 'b1tch', 'baby batter', 'baby juice', 'ball gag'
+    text = text.replaceAll('𝗌', 's')
+    text = text.replaceAll('𝘴', 's')
+    text = text.replaceAll('𝙨', 's')
+    text = text.replaceAll('𝚜', 's')
+    text = text.replaceAll('𝐬', 's')
+    text = text.replaceAll('𝑠', 's')
+    text = text.replaceAll('𝒔', 's')
+    text = text.replaceAll('𝓈', 's')
+    text = text.replaceAll('𝓼', 's')
+    text = text.replaceAll('𝔰', 's')
+    text = text.replaceAll('𝖘', 's')
+    text = text.replaceAll('𝕤', 's')
+    text = text.replaceAll('ｓ', 's')
+    text = text.replaceAll('ş', 's')
+    text = text.replaceAll('ⓢ', 's')
+    text = text.replaceAll('⒮', 's')
+    text = text.replaceAll('🅢', 's')
+    text = text.replaceAll('🆂', 's')
+    text = text.replaceAll('🅂', 's')
+    text = text.replaceAll('𝖾', 'e')
+    text = text.replaceAll('𝘦', 'e')
+    text = text.replaceAll('𝙚', 'e')
+    text = text.replaceAll('𝚎', 'e')
+    text = text.replaceAll('𝐞', 'e')
+    text = text.replaceAll('𝑒', 'e')
+    text = text.replaceAll('𝒆', 'e')
+    text = text.replaceAll('ℯ', 'e')
+    text = text.replaceAll('𝓮', 'e')
+    text = text.replaceAll('𝔢', 'e')
+    text = text.replaceAll('𝖊', 'e')
+    text = text.replaceAll('𝕖', 'e')
+    text = text.replaceAll('ｅ', 'e')
+    text = text.replaceAll('ė', 'e')
+    text = text.replaceAll('ⓔ', 'e')
+    text = text.replaceAll('⒠', 'e')
+    text = text.replaceAll('🅔', 'e')
+    text = text.replaceAll('🅴', 'e')
+    text = text.replaceAll('🄴', 'e')
+    text = text.replaceAll('є', 'e')
+    text = text.replaceAll('𝗑', 'x')
+    text = text.replaceAll('𝘹', 'x')
+    text = text.replaceAll('𝙭', 'x')
+    text = text.replaceAll('𝚡', 'x')
+    text = text.replaceAll('𝐱', 'x')
+    text = text.replaceAll('𝑥', 'x')
+    text = text.replaceAll('𝒙', 'x')
+    text = text.replaceAll('𝓍', 'x')
+    text = text.replaceAll('𝔁', 'x')
+    text = text.replaceAll('𝔵', 'x')
+    text = text.replaceAll('𝖝', 'x')
+    text = text.replaceAll('𝕩', 'x')
+    text = text.replaceAll('ｘ', 'x')
+    text = text.replaceAll('ⓧ', 'x')
+    text = text.replaceAll('⒳', 'x')
+    text = text.replaceAll('🅧', 'x')
+    text = text.replaceAll('🆇', 'x')
+    text = text.replaceAll('🅇', 'x')
+    text = text.replaceAll('₨', 'rs')
+    text = text.replaceAll('ų', 'u')
+    text = text.replaceAll('ç', 'c')
+    text = text.replaceAll('Ｆ', 'F')
+    text = text.replaceAll('Ｋ', 'K')
+    text = text.replaceAll('Ｃ', 'C')
+    text = text.replaceAll('Ｕ', 'U')
+    // korcen.ts && change
+    const cl = [
         , 'ball gravy', 'ball licking', 'ball sack', 'ball sucking', 'ballbag', 'ballsack', 'bampot', "bang (one's) box", 'bangbros', 'barely legal'
         , 'barenaked', 'barf', 'bastard', 'bastardo', 'bastards', 'bastinado', 'batty boy', 'bdsm', 'beaner', 'beaners', 'beardedclam', 'beastial'
         , 'beastiality', 'beatch', 'beaver cleaver', 'beaver lips', 'beef curtain', 'beef curtains', 'beeyotch', 'bellend', 'beotch', 'bescumber'
@@ -1246,46 +1310,26 @@ const check_english = (text) => {
         , 'cocknugget', 'cockshit', 'cocksmith', 'cocksmoke', 'cocksmoker', 'cocksniffer', 'cocksuck', 'cocksuck', 'cocksucked', 'cocksucked', 'cocksucker'
         , 'cock-sucker', 'cocksuckers', 'cocksucking', 'cocksucks', 'cocksucks', 'cocksuka', 'cocksukka', 'cockwaffle', 'coital', 'cokmuncher', 'coksucka'
         , 'commie', 'coochie', 'coochy', 'coon', 'coonnass', 'coons', 'cooter', 'cop some wood', 'coprolagnia', 'coprophilia', 'corksucker', 'cornhole'
-        , 'cornhole', 'corp whore', 'corp whore', 'crackwhore', 'crap', 'crappy', 'cretin', 'crikey', 'cripple', 'crotte', 'cum chugger', 'cum chugger'
-        , 'cum dumpster', 'cum dumpster', 'cum freak', 'cum freak', 'cum guzzler', 'cum guzzler', 'cumbubble', 'cumdump', 'cumdump', 'cumdumpster'
-        , 'cumguzzler', 'cumjockey', 'cummer', 'cummin', 'cumming', 'cums', 'cumshot', 'cumshots', 'cumslut', 'cumstain', 'cumtart', 'cunilingus'
+        , 'cornhole', 'corp whore', 'corp whore', 'crackwhore', 'crap', 'crappy', 'cretin', 'crikey', 'cripple', 'crotte', 'cunilingus'
         , 'cunillingus', 'cunnie', 'cunnilingus', 'cunny', 'cunt', 'c-u-n-t', 'cunt hair', 'cunt hair', 'cuntass', 'cuntbag', 'cuntbag', 'cuntface'
         , 'cunthole', 'cunthunter', 'cuntlick', 'cuntlick', 'cuntlicker', 'cuntlicker', 'cuntlicking', 'cuntlicking', 'cuntrag', 'cunts', 'cuntsicle'
         , 'cuntsicle', 'cuntslut', 'cunt-struck', 'cunt-struck', 'cyalis', 'cyberfuc', 'cyberfuck', 'cyberfuck', 'cyberfucked', 'cyberfucked'
         , 'cyberfucker', 'cyberfuckers', 'cyberfucking', 'cyberfucking', 'd0ng', 'd0uch3', 'd0uche', 'd1ck', 'd1ld0', 'd1ldo', 'dammit', 'date rape'
-        , 'daterape', 'dawgie-style', 'deep throat', 'deepthroat', 'dendrophilia', 'dick', 'dick head', 'dick hole', 'dick hole', 'dick shy', 'dick shy'
-        , 'dickbag', 'dickbeaters', 'dickdipper', 'dickface', 'dickflipper', 'dickfuck', 'dickfucker', 'dickhead', 'dickheads', 'dickhole', 'dickish'
-        , 'dick-ish', 'dickjuice', 'dickmilk', 'dickmonger', 'dickripper', 'dicks', 'dicksipper', 'dickslap', 'dick-sneeze', 'dicksucker', 'dicksucking'
-        , 'dicktickler', 'dickwad', 'dickweasel', 'dickweed', 'dickwhipper', 'dickwod', 'dickzipper', 'dildo', 'dildos', 'diligaf', 'dingleberries'
-        , 'dingleberry', 'dipship', 'dipshit', 'dirty pillows', 'dirty sanchez', 'dlck', 'dog style', 'dog-fucker', 'doggie style', 'doggiestyle'
-        , 'doggie-style', 'doggin', 'dogging', 'doggy style', 'doggystyle', 'doggy-style', 'dolcett', 'dominatrix', 'dommes', 'donkey punch', 'donkeypunch'
+        , 'daterape', 'dawgie-style', 'deep throat', 'deepthroat', 'dendrophilia', 'dolcett', 'dominatrix', 'dommes', 'donkey punch', 'donkeypunch'
         , 'donkeyribber', 'doochbag', 'doofus', 'dookie', 'doosh', 'dopey', 'double dong', 'double penetration', 'douch3', 'douche', 'douchebag'
         , 'douchebags', 'douche-fag', 'douchewaffle', 'douchey', 'dp action', 'dry hump', 'dumass', 'dumb ass', 'dumbass', 'dumbasses', 'dumbcunt'
-        , 'dumbfuck', 'dumbshit', 'dumshit', 'eat a dick', 'eat a dick', 'eat hair pie', 'eat hair pie', 'eat my ass', 'ejaculate', 'ejaculated'
+        , 'dumbfuck', 'dumbshit', 'dumshit', 'ejaculate', 'ejaculated'
         , 'ejaculates', 'ejaculates', 'ejaculating', 'ejaculating', 'ejaculatings', 'ejaculation', 'ejakulate', 'erect', 'erection', 'erotic', 'erotism'
-        , 'escort', 'essohbee', 'extacy', 'extasy', 'f u c k', 'f u c k e r', 'f.u.c.k', 'f_u_c_k', 'f4nny', 'fack', 'fagbag', 'fagfucker', 'fagg'
+        , 'escort', 'essohbee', 'extacy', 'extasy', 'f4nny', 'fack', 'fagbag', 'fagfucker', 'fagg'
         , 'fagged', 'fagging', 'faggit', 'faggitt', 'faggot', 'faggotcock', 'faggots', 'faggs', 'fagot', 'fagots', 'fags', 'fagtard', 'faig', 'faigt'
         , 'fannybandit', 'fannyflaps', 'fannyfucker', 'fanyy', 'fartknocker', 'fatass', 'fcuk', 'fcuker', 'fcuking', 'fecal', 'felch', 'felcher'
         , 'felching', 'fellate', 'fellatio', 'feltch', 'feltcher', 'female squirting', 'femdom', 'fenian', 'fingerbang', 'fingerfuck', 'fingerfuck'
         , 'fingerfucked', 'fingerfucked', 'fingerfucker', 'fingerfucker', 'fingerfuckers', 'fingerfucking', 'fingerfucking', 'fingerfucks'
         , 'fingerfucks', 'fist fuck', 'fist fuck', 'fisted', 'fistfuck', 'fistfucked', 'fistfucked', 'fistfucker', 'fistfucker', 'fistfuckers'
         , 'fistfuckers', 'fistfucking', 'fistfucking', 'fistfuckings', 'fistfuckings', 'fistfucks', 'fistfucks', 'fisting', 'fisty', 'fleshflute'
-        , 'flog the log', 'floozy', 'foad', 'fondle', 'fooker', 'foot fetish', 'footjob', 'foreskin', 'frotting', 'fubar', 'fuck', 'fuck', 'f-u-c-k'
-        , 'fuck buttons', 'fuck hole', 'fuck hole', 'fuck off', 'fuck puppet', 'fuck puppet', 'fuck trophy', 'fuck trophy', 'fuck yo mama'
-        , 'fuck yo mama', 'fuck you', 'fucka', 'fuckass', 'fuck-ass', 'fuck-ass', 'fuckbag', 'fuck-bitch', 'fuck-bitch', 'fuckboy', 'fuckbrain'
-        , 'fuckbutt', 'fuckbutter', 'fucked', 'fuckedup', 'fucker', 'fuckers', 'fuckersucker', 'fuckface', 'fuckhead', 'fuckheads', 'fuckhole'
-        , 'fuckin', 'fucking', 'fuckings', 'fuckingshitmotherfucker', 'fuckme', 'fuckme', 'fuckmeat', 'fuckmeat', 'fucknugget', 'fucknut', 'fucknutt'
-        , 'fuckoff', 'fucks', 'fuckstick', 'fucktard', 'fuck-tard', 'fucktards', 'fucktart', 'fucktoy', 'fucktoy', 'fucktwat', 'fuckup', 'fuckwad'
-        , 'fuckwhit', 'fuckwit', 'fuckwitt', 'fudge packer', 'fudgepacker', 'fudge-packer', 'fuker', 'fukker', 'fukkers', 'fukkin', 'fuks', 'fukwhit'
-        , 'fukwit', 'futanari', 'fux0r', 'fvck', 'fxck', 'gang bang', 'gangbang', 'gang-bang', 'gang-bang', 'gangbanged', 'gangbangs', 'gassy ass'
-        , 'gassy ass', 'gay sex', 'gayass', 'gaybob', 'gaydo', 'gayfuck', 'gayfuckist', 'gaysex', 'gaytard', 'gaywad', 'gender bender', 'giant cock'
-        , 'gigolo', 'gippo', 'glans', 'goatcx', 'goatse', 'goddamn', 'goddamned', 'god-damned', 'goddamnit', 'godsdamn', 'gokkun', 'golden shower'
-        , 'goldenshower', 'goo girl', 'goodpoop', 'gooks', 'goregasm', 'group sex', 'gspot', 'g-spot', 'gtfo', 'h0m0', 'h0mo', 'hand job', 'handjob'
-        , 'hardcoresex', 'hentai', 'heroin', 'herpes', 'hobag', 'hoer', 'hom0', 'homodumbshit', 'homoerotic', 'homoey', 'honkey', 'honky', 'hooker'
-        , 'hore', 'horniest', 'horny', 'hot carl', 'hot chick', 'hotsex', 'how to murdep', 'how to murder', 'humped', 'humping', 'iberian slap'
-        , 'inbred', 'incest', 'intercourse', 'jack off', 'jackass', 'jackasses', 'jackhole', 'jackoff', 'jack-off', 'jail bait', 'jailbait', 'japs'
-        , 'jerk', 'jerk off', 'jerk0ff', 'jerkass', 'jerked', 'jerkoff', 'jerk-off', 'jigaboo', 'jiggaboo', 'jiggerboo', 'jism', 'jizm', 'jizm', 'jizz'
-        , 'jizzed', 'jock', 'juggs', 'jungle bunny', 'junglebunny', 'kafir', 'kike', 'kikes', 'kinbaku', 'kinkster', 'knobead', 'knobed', 'knobend'
+        , 'flog the log', 'floozy', 'foad', 'fondle', 'fooker', 'foot fetish', 'footjob', 'foreskin', 'frotting', 'fubar'
+        , 'how to murdep', 'how to murder', 'humped', 'humping', 'iberian slap'
+        , 'inbred', 'incest', 'intercourse', 'kafir', 'kike', 'kikes', 'kinbaku', 'kinkster', 'knobead', 'knobed', 'knobend'
         , 'knobhead', 'knobjocky', 'knobjokey', 'kooch', 'kooches', 'kootch', 'kunilingus', 'kunt', 'kwif', 'kyke', 'l3i+ch', 'l3itch', 'labia', 'lameass'
         , 'lardass', 'leather restraint', 'leather straight jacket', 'lemon party', 'leper', 'lezza', 'lezzie', 'lolita', 'lovemaking', 'lube', 'm0f0'
         , 'm0fo', 'm45terbate', 'ma5terb8', 'ma5terbate', 'mafugly', 'mafugly', 'make me come', 'male squirting', 'masterb8', 'masterbat*', 'masterbat3'
@@ -1298,14 +1342,13 @@ const check_english = (text) => {
         , 'nawashi', 'need the dick', 'negro', 'nig nog', 'nigaboo', 'nigg3r', 'nigg4h', 'nigga', 'niggah', 'niggas', 'niggaz', 'nigger', 'niggers'
         , 'niglet', 'nig-nog', 'nimphomania', 'nob jokey', 'nobhead', 'nobjocky', 'nobjokey', 'nonce', 'nsfw images', 'nude', 'nudity', 'numbnuts'
         , 'nut sack', 'nutsack', 'nympho', 'nymphomania', 'octopussy', 'omorashi', 'one cup two girls', 'one guy one jar', 'opiate', 'opium', 'orgasim'
-        , 'orgasims', 'orgasm', 'orgasmic', 'orgasms', 'orgies', 'orgy', 'p.u.s.s.y.', 'p0rn', 'paedophile', 'paki', 'peckerhead', 'pedobear', 'pedophile'
+        , 'orgasims', 'orgasm', 'orgasmic', 'orgasms', 'orgies', 'orgy', 'p0rn', 'paedophile', 'paki', 'peckerhead', 'pedobear', 'pedophile'
         , 'pedophilia', 'pedophiliac', 'peepee', 'pegging', 'penial', 'penile', 'penis', 'penisbanger', 'penisfucker', 'penispuffer', 'phallic'
         , 'phone sex', 'phonesex', 'phuck', 'phuk', 'phuked', 'phuking', 'phukked', 'phukking', 'phuks', 'phuq', 'piece of shit', 'pigfucker', 'pillowbiter'
         , 'pimp', 'pimpis', 'piss pig', 'pissflaps', 'pisspig', 'pleasure chest', 'polack', 'pole smoker', 'polesmoker', 'pollock', 'ponyplay', 'poof'
         , 'poon', 'poonani', 'poonany', 'poontang', 'poop chute', 'poopchute', 'poopuncher', 'porch monkey', 'porchmonkey', 'porn', 'porno', 'pornography'
         , 'pornos', 'potty', 'prick', 'pricks', 'prickteaser', 'prig', 'prince albert piercing', 'pron', 'prostitute', 'pthc', 'pube', 'pubes', 'pubic'
-        , 'pubis', 'punani', 'punanny', 'punany', 'puss', 'pusse', 'pussi', 'pussies', 'pussy', 'pussy fart', 'pussy fart', 'pussy palace', 'pussy palace'
-        , 'pussylicking', 'pussypounder', 'pussys', 'queaf', 'queaf', 'queef', 'queerbait', 'queerhole', 'queero', 'quim', 'raghead', 'raging boner', 'rape'
+        , 'pubis', 'punani', 'punanny', 'punany', 'queaf', 'queaf', 'queef', 'queerbait', 'queerhole', 'queero', 'quim', 'raghead', 'raging boner', 'rape'
         , 'raped', 'raper', 'rapey', 'raping', 'rapist', 'raunch', 'reetard', 'renob', 'retard', 'retarded', 'reverse cowgirl', 'rimjaw', 'rimjob', 'rimming'
         , 'ritard', 'rosy palm', 'rosy palm and her 5 sisters', 'rtard', 'r-tard', 'rusty trombone', 's hit', 's.h.i.t.', 's.o.b.', 's_h_i_t', 'sadism'
         , 'sadist', 'sand nigger', 'sandnigger', 'sausage queen', 'schizo', 'schlong', 'scissoring', 'scroat', 'scrog', 'scrot', 'scrote', 'scum', 'seks'
@@ -1325,11 +1368,57 @@ const check_english = (text) => {
         , 'urophilia', 'v14gra', 'v1gra', 'vagina', 'vajayjay', 'va-j-j', 'venus mound', 'veqtable', 'violet wand', 'vixen', 'vjayjay', 'vorarephilia'
         , 'vulva', 'wang', 'wank', 'wanker', 'wankjob', 'wanky', 'wazoo', 'wet dream', 'wetback', 'wh0re', 'wh0reface', 'whore', 'whorealicious'
         , 'whorebag', 'whored', 'whoreface', 'whorehopper', 'whorehouse', 'whores', 'whoring', 'wigger', 'window licker', 'wrinkled starfish', 'yaoi'
-        , 'yeasty', 'yellow showers', 'yiffy', 'yobbo', 'zibbi', 'zoophilia', 'zubb'
-    ]
+        , 'yeasty', 'yellow showers', 'yobbo', 'zibbi', 'zoophilia', 'zubb'
+    ] // -> 분류중...
+    const sex = [
+        '2 girls 1 cup', '2g1c', '4r5e', '5h1t', '5hit', 'a$$hole', 'a_s_s', 'a55hole', 'acrotomophilia', 'ahole', 'alabama hot pocket'
+        , 'alaskan pipeline', 'anal', 'anal impaler', 'anal leakage', 'analprobe', 'anilingus', 'apeshit', 'ar5e', 'arrse', 'arse', 'arsehole', 'ass fuck'
+        , 'ass hole', 'assbag', 'assbandit', 'assbang', 'assbanged', 'assbanger', 'assbangs', 'assbite', 'assclown', 'asscock', 'asscracker', 'asses'
+        , 'assface', 'assfaces', 'assfuck', 'assfucker', 'ass-fucker', 'assfukka', 'assgoblin', 'assh0le', 'asshat', 'ass-hat', 'asshead', 'assho1e'
+        , 'asshole', 'assholes', 'asshopper', 'ass-jabber', 'assjacker', 'asslick', 'asslicker', 'assmaster', 'assmonkey', 'assmucus', 'assmucus'
+        , 'assmunch', 'assmuncher', 'assnigger', 'asspirate', 'ass-pirate', 'assshit', 'assshole', 'asssucker', 'asswad', 'asswhole', 'asswipe'
+        , 'asswipes', 'auto erotic', 'autoerotic', 'axwound', 'azazel', 'b!tch', 'b00bs', 'b17ch', 'b1tch','baby batter', 'baby juice', 'ball gag'
+        , 'yiffy', 'dick', 'dick head', 'dick hole', 'dick hole', 'dick shy', 'dick shy'
+        , 'dickbag', 'dickbeaters', 'dickdipper', 'dickface', 'dickflipper', 'dickfuck', 'dickfucker', 'dickhead', 'dickheads', 'dickhole', 'dickish'
+        , 'dick-ish', 'dickjuice', 'dickmilk', 'dickmonger', 'dickripper', 'dicks', 'dicksipper', 'dickslap', 'dick-sneeze', 'dicksucker', 'dicksucking'
+        , 'dicktickler', 'dickwad', 'dickweasel', 'dickweed', 'dickwhipper', 'dickwod', 'dickzipper', 'dildo', 'dildos', 'diligaf', 'dingleberries'
+        , 'dingleberry', 'dipship', 'dipshit', 'dirty pillows', 'dirty sanchez', 'dlck', 'dog style', 'dog-fucker', 'doggie style', 'doggiestyle'
+        , 'doggie-style', 'doggin', 'dogging', 'doggy style', 'doggystyle', 'doggy-style', 'puss', 'pusse', 'pussi', 'pussies', 'pussy', 'pussy fart', 'pussy fart', 'pussy palace', 'pussy palace'
+        , 'pussylicking', 'pussypounder', 'pussys', 'p.u.s.s.y.', 'cum chugger', 'cum chugger'
+        , 'cum dumpster', 'cum dumpster', 'cum freak', 'cum freak', 'cum guzzler', 'cum guzzler', 'cumbubble', 'cumdump', 'cumdump', 'cumdumpster'
+        , 'cumguzzler', 'cumjockey', 'cummer', 'cummin', 'cumming', 'cums', 'cumshot', 'cumshots', 'cumslut', 'cumstain', 'cumtart', 'gay sex', 'gayass', 'gaybob', 'gaydo', 'gayfuck', 'gayfuckist', 'gaysex', 'gaytard', 'gaywad', 'gender bender', 'giant cock'
+        , 'gigolo', 'gippo', 'glans', 'goatcx', 'goatse', 'goddamn', 'goddamned', 'god-damned', 'goddamnit', 'godsdamn', 'gokkun', 'golden shower'
+        , 'goldenshower', 'goo girl', 'goodpoop', 'gooks', 'goregasm', 'group sex', 'gspot', 'g-spot', 'gtfo', 'h0m0', 'h0mo', 'hand job', 'handjob'
+        , 'hardcoresex', 'hentai', 'heroin', 'herpes', 'hobag', 'hoer', 'hom0', 'homodumbshit', 'homoerotic', 'homoey', 'honkey', 'honky', 'hooker'
+        , 'hore', 'horniest', 'horny', 'hot carl', 'hot chick', 'hotsex',
+        , 'fuck buttons', 'fuck hole', 'fuck hole', 'fuck off', 'fuck puppet', 'fuck puppet', 'fuck trophy', 'fuck trophy', 'fuck yo mama'
+        , 'fuck yo mama', 'fuck you', 'fucka', 'fuckass', 'fuck-ass', 'fuck-ass', 'fuckbag', 'fuck-bitch', 'fuck-bitch', 'fuckboy', 'fuckbrain'
+        , 'fuckbutt', 'fuckbutter', 'fucked', 'fuckedup', 'fucker', 'fuckers', 'fuckersucker', 'fuckface', 'fuckhead', 'fuckheads', 'fuckhole'
+        , 'fuckin', 'fucking', 'fuckings', 'fuckingshitmotherfucker', 'fuckme', 'fuckme', 'fuckmeat', 'fuckmeat', 'fucknugget', 'fucknut', 'fucknutt'
+        , 'fuckoff', 'fucks', 'fuckstick', 'fucktard', 'fuck-tard', 'fucktards', 'fucktart', 'fucktoy', 'fucktoy', 'fucktwat', 'fuckwad'
+        , 'fuckwhit', 'fuckwit', 'fuckwitt', 'fudge packer', 'fudgepacker', 'fudge-packer', 'fuker', 'fukker', 'fukkers', 'fukkin', 'fuks', 'fukwhit'
+        , 'fukwit', 'futanari', 'fux0r', 'fvck', 'fxck', 'gang bang', 'gangbang', 'gang-bang', 'gang-bang', 'gangbanged', 'gangbangs', 'gassy ass'
+        , 'eat a dick', 'eat a dick', 'eat hair pie', 'eat hair pie', 'eat my ass', 'gassy ass', 'jack off', 'jackass'
+        , 'jackasses', 'jackhole', 'jackoff', 'jack-off', 'jail bait', 'jailbait', 'japs'
+        , 'jerk', 'jerk off', 'jerk0ff', 'jerkass', 'jerked', 'jerkoff', 'jerk-off', 'jigaboo', 'jiggaboo', 'jiggerboo', 'jism', 'jizm', 'jizm', 'jizz'
+        , 'jizzed', 'jock', 'juggs', 'jungle bunny', 'junglebunny'
+    ] // -> 성적발언
+    const fuck = [
+        'f u c k', 'f u c k e r', 'f.u.c.k', 'f_u_c_k', 'fuxx', 'fuck', 'fuck', 'f-u-c-k', 'fuckup'
+    ] // -> 비속어
     for (let i in cl) {
         if (cl[i].includes(text) && text) {
             return {"result":true,"reason":"unknown","discovered":cl[i]}
+        }
+    }
+    for (let i in sex) {
+        if (sex[i].includes(text) && text) {
+            return {"result":true,"reason":"unknown","discovered":sex[i]}  // 분류전까지 unknown
+        }
+    }
+    for (let i in fuck) {
+        if (fuck[i].includes(text) && text) {
+            return {"result":true,"reason":"unknown","discovered":fuck[i]} // 분류전까지 unknown
         }
     }
     return {"result":false,"reason":"none","discovered":"none"}
